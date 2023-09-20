@@ -3,9 +3,12 @@
 
 #include "Pangaea/Player/PlayerAvatar.h"
 
+#include "Camera/CameraComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/SkeletalMeshComponent.h"
-
+#include "DSP/AllPassFilter.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
 APlayerAvatar::APlayerAvatar()
@@ -13,11 +16,32 @@ APlayerAvatar::APlayerAvatar()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	BoxComponent = CreateDefaultSubobject<UBoxComponent>(FName("Box"), false);
-	SetRootComponent(BoxComponent);
+	// BoxComponent = CreateDefaultSubobject<UBoxComponent>(FName("Box"), false);
+	// SetRootComponent(BoxComponent);
+	//
+	// MeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(FName("Mesh"), false);
+	// MeshComponent->SetupAttachment(GetRootComponent());
+
+	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(FName("SpringArm"), false);
+	SpringArmComponent->SetupAttachment(GetRootComponent());
+	SpringArmComponent->SetUsingAbsoluteRotation(true);
+	SpringArmComponent->TargetArmLength = 1200.f;
+	SpringArmComponent->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
+	SpringArmComponent->bDoCollisionTest = false;
 	
-	MeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(FName("Mesh"), false);
-	MeshComponent->SetupAttachment(GetRootComponent());
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>(FName("Camera"), false);
+	CameraComponent->SetupAttachment(SpringArmComponent);
+	CameraComponent->bUsePawnControlRotation = false;
+
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationRoll = false;
+	bUseControllerRotationYaw = false;
+
+	auto const MainCharacterMovement  = GetCharacterMovement();
+	MainCharacterMovement->bOrientRotationToMovement = true;
+	MainCharacterMovement->RotationRate = FRotator(0.f, 640.f, 0.f);
+	MainCharacterMovement->bConstrainToPlane = true;
+	MainCharacterMovement->bSnapToPlaneAtStart = true;
 }
 
 // Called when the game starts or when spawned

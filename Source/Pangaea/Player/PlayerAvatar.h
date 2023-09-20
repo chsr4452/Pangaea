@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "PlayerAvatar.generated.h"
 
+class UCameraComponent;
+class USpringArmComponent;
 class USkeletalMeshComponent;
 class UBoxComponent;
 
@@ -46,19 +48,36 @@ public:
 	void Attock() const;
 	void Hit(int Damage) const;
 
-	FORCEINLINE UBoxComponent * GetBoxComponent() const
+	// FORCEINLINE UBoxComponent * GetBoxComponent() const
+	// {
+	// 	return CapsuleComponent;
+	// }
+	//
+	// FORCEINLINE USkeletalMeshComponent * GetMeshComponent() const
+	// {
+	// 	return MeshComponent;
+	// }
+
+	FORCEINLINE UCameraComponent* GetCameraComponent() const
 	{
-		return BoxComponent;
+		return CameraComponent;
 	}
 
-	FORCEINLINE USkeletalMeshComponent * GetMeshComponent() const
+	FORCEINLINE USpringArmComponent* GetSpringArmComponent() const
 	{
-		return MeshComponent;
+		return SpringArmComponent;
 	}
 	
 private:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
-	TObjectPtr<UBoxComponent> BoxComponent;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
-	TObjectPtr<USkeletalMeshComponent> MeshComponent;
+	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
+	// TObjectPtr<UBoxComponent> BoxComponent;
+	//
+	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
+	// TObjectPtr<USkeletalMeshComponent> MeshComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
+	TObjectPtr<USpringArmComponent> SpringArmComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
+	TObjectPtr<UCameraComponent> CameraComponent;
 };
