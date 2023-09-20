@@ -3,6 +3,7 @@
 
 #include "Pangaea/Player/PlayerAvatar.h"
 
+#include "PlayerAnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -42,6 +43,8 @@ APlayerAvatar::APlayerAvatar()
 	MainCharacterMovement->RotationRate = FRotator(0.f, 640.f, 0.f);
 	MainCharacterMovement->bConstrainToPlane = true;
 	MainCharacterMovement->bSnapToPlaneAtStart = true;
+
+	
 }
 
 // Called when the game starts or when spawned
@@ -56,6 +59,9 @@ void APlayerAvatar::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	UPlayerAnimInstance * AnimInstance = Cast<UPlayerAnimInstance>(GetMesh()->GetAnimInstance());
+
+	AnimInstance->Speed = GetCharacterMovement()->Velocity.Size2D();
 }
 
 // Called to bind functionality to input
