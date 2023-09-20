@@ -9,6 +9,7 @@
 #include "Engine/World.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Pangaea/Player/PlayerAvatar.h"
 
 APangaeaPlayerController::APangaeaPlayerController()
 {
@@ -44,6 +45,8 @@ void APangaeaPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Completed, this, &APangaeaPlayerController::OnSetDestinationReleased);
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Canceled, this, &APangaeaPlayerController::OnSetDestinationReleased);
 
+		EnhancedInputComponent->BindAction(SetAttackClickAction, ETriggerEvent::Triggered, this, &APangaeaPlayerController::OnAttack);
+		
 		// Setup touch input events
 		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Started, this, &APangaeaPlayerController::OnInputStarted);
 		EnhancedInputComponent->BindAction(SetDestinationTouchAction, ETriggerEvent::Triggered, this, &APangaeaPlayerController::OnTouchTriggered);
@@ -114,4 +117,13 @@ void APangaeaPlayerController::OnTouchReleased()
 {
 	bIsTouch = false;
 	OnSetDestinationReleased();
+}
+
+void APangaeaPlayerController::OnAttack() 
+{
+	auto const PlayerAvatar = Cast<APlayerAvatar>(GetPawn()); 
+	if(PlayerAvatar->CanAttack())
+	{
+		PlayerAvatar->Attack();
+	}
 }

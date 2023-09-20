@@ -45,8 +45,9 @@ public:
 	int GetHealthPoints() const;
 	bool IsKilled() const;
 	bool CanAttack() const;
-	void Attock() const;
+	void Attack();
 	void Hit(int Damage) const;
+
 
 	// FORCEINLINE UBoxComponent * GetBoxComponent() const
 	// {
