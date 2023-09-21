@@ -26,7 +26,8 @@ void AEnemyCharacter::BeginPlay()
 void AEnemyCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	auto AnimInst = Cast<UEnemyAnimInstance>(GetMesh()->GetAnimInstance());
+	UEnemyAnimInstance* AnimInst = Cast<UEnemyAnimInstance>(GetMesh()->GetAnimInstance());
+	check(AnimInst);
 	AnimInst->Speed = GetCharacterMovement()->Velocity.Size2D();
 
 	if(AttackCountingDown == AttackInterval)

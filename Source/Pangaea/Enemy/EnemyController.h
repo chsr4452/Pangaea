@@ -3,15 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
+#include "AIController.h"
 #include "EnemyController.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class PANGAEA_API AEnemyController : public APlayerController
+class PANGAEA_API AEnemyController : public AAIController
 {
 	GENERATED_BODY()
-	
+public:
+	void MakeAttackDecision(APawn* TargetPawn);
 };
