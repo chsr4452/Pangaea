@@ -45,6 +45,7 @@ void APangaeaPlayerController::SetupInputComponent()
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Completed, this, &APangaeaPlayerController::OnSetDestinationReleased);
 		EnhancedInputComponent->BindAction(SetDestinationClickAction, ETriggerEvent::Canceled, this, &APangaeaPlayerController::OnSetDestinationReleased);
 
+		EnhancedInputComponent->BindAction(SetAttackClickAction, ETriggerEvent::Started, this, &APangaeaPlayerController::OnInputStarted);
 		EnhancedInputComponent->BindAction(SetAttackClickAction, ETriggerEvent::Triggered, this, &APangaeaPlayerController::OnAttack);
 		
 		// Setup touch input events
@@ -124,6 +125,7 @@ void APangaeaPlayerController::OnAttack()
 	auto const PlayerAvatar = Cast<APlayerAvatar>(GetPawn()); 
 	if(PlayerAvatar->CanAttack())
 	{
+		StopMovement();
 		PlayerAvatar->Attack();
 	}
 }
