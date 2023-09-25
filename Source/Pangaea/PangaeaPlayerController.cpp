@@ -31,6 +31,11 @@ void APangaeaPlayerController::BeginPlay()
 	}
 }
 
+APawn* APangaeaPlayerController::GetPlayerPawn()
+{
+	return GetPawn();
+}
+
 void APangaeaPlayerController::SetupInputComponent()
 {
 	// set up gameplay key bindings

@@ -42,6 +42,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* SetAttackClickAction;
 
+	UFUNCTION(BlueprintCallable, Category = "PlayerController|GetOwner")
+	APawn* GetPlayerPawn();
 protected:
 	/** True if the controlled character should navigate to the mouse cursor. */
 	uint32 bMoveToMouseCursor : 1;

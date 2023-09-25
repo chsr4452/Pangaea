@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable)
 class PANGAEA_API AEnemyController : public AAIController
 {
 	GENERATED_BODY()

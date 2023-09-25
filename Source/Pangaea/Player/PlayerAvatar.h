@@ -69,6 +69,7 @@ public:
 		return SpringArmComponent;
 	}
 	
+
 private:
 	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
 	// TObjectPtr<UBoxComponent> BoxComponent;

@@ -51,7 +51,8 @@ APlayerAvatar::APlayerAvatar()
 void APlayerAvatar::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	Tags.Add(FName("PlayerCharacter"));
 }
 
 // Called every frame
@@ -106,6 +107,8 @@ void APlayerAvatar::Attack()
 void APlayerAvatar::Hit(int Damage) const
 {
 }
+
+
 
 void APlayerAvatar::DieProcess()
 {

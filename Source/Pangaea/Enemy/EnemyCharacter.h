@@ -6,7 +6,7 @@
 #include "GameFramework/Character.h"
 #include "EnemyCharacter.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable)
 class PANGAEA_API AEnemyCharacter : public ACharacter
 {
 	GENERATED_BODY()
@@ -28,23 +28,28 @@ protected:
 	virtual void BeginPlay() override;
 	int HealthPointsCurrent;
 	float AttackCountingDown;
-	APawn* ChasedTarget = nullptr;
-	
 
+	UPROPERTY(BlueprintReadWrite, Category = "Enemy|ChasedTarget")
+	APawn* ChasedTarget = nullptr;
+
+	UFUNCTION()
+	void PawnSeen(APawn* SeenPawn);
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	//virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|Enemy Functions") int GetHealthPoints();
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|Enemy Functions") bool IsKilled();
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|Enemy Functions") bool CanAttack();
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|Enemy Functions") void Chase(APawn* TargetPawn);
-	UFUNCTION(BlueprintCallable, Category = "Pangaea|Enemy Functions") void Attack();
-	UFUNCTION(BlueprintCallable, Category = "Pangaea|Enemy Functions") void Hit(int Damage);
-	UFUNCTION(BlueprintCallable, Category = "Pangaea|Enemy Functions") void DieProcess();
+	void Attack();
+	void Hit(int Damage);
+	void DieProcess();
+
+	
 
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true));
