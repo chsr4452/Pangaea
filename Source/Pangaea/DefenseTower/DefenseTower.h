@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "DefenseTower.generated.h"
 
-class UBoxComponent;
+class USphereComponent;
 class UStaticMeshComponent;
 
 UCLASS(Blueprintable)
@@ -44,9 +44,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|Defense Tower")void Fire() const;
 	UFUNCTION(BlueprintCallable, Category = "Pangaea|Defense Tower")void Hit(int Damage) const;
 
-	FORCEINLINE UBoxComponent * GetBoxComponent() const
+	FORCEINLINE USphereComponent * GetSphereComponent() const
 	{
-		return BoxComponent;
+		return SphereComponent;
 	}
 
 	FORCEINLINE UStaticMeshComponent * GetMeshComponent() const
@@ -56,7 +56,7 @@ public:
 	
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
-	TObjectPtr<UBoxComponent> BoxComponent;
+	TObjectPtr<USphereComponent> SphereComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
 	TObjectPtr<UStaticMeshComponent> MeshComponent;
 };

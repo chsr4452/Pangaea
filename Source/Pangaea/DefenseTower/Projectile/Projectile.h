@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
 
-class UBoxComponent;
+class USphereComponent;
 class UStaticMeshComponent;
 
 UCLASS(Blueprintable)
@@ -30,9 +30,9 @@ public:
 	float Lifespan = 5.0f;
 	float Damage = 10.f;
 
-	FORCEINLINE UBoxComponent * GetBoxComponent() const
+	FORCEINLINE USphereComponent * GetSphereComponent() const
 	{
-		return BoxComponent;
+		return SphereComponent;
 	}
 
 	FORCEINLINE UStaticMeshComponent * GetMeshComponent() const
@@ -42,7 +42,7 @@ public:
 	
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
-	TObjectPtr<UBoxComponent> BoxComponent;
+	TObjectPtr<USphereComponent> SphereComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
 	TObjectPtr<UStaticMeshComponent> MeshComponent;
 

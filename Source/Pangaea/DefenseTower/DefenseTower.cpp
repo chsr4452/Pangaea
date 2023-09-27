@@ -2,7 +2,7 @@
 
 
 #include "Pangaea/DefenseTower/DefenseTower.h"
-#include "Components/BoxComponent.h"
+#include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
 
 // Sets default values
@@ -11,8 +11,8 @@ ADefenseTower::ADefenseTower()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	BoxComponent = CreateDefaultSubobject<UBoxComponent>(FName("Box"), false);
-	SetRootComponent(BoxComponent);
+	SphereComponent = CreateDefaultSubobject<USphereComponent>(FName("Sphere"), false);
+	SetRootComponent(SphereComponent);
 	
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(FName("Mesh"), false);
 	MeshComponent->SetupAttachment(GetRootComponent());

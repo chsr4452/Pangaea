@@ -3,7 +3,7 @@
 
 #include "Pangaea/DefenseTower/Projectile/Projectile.h"
 #include "Components/StaticMeshComponent.h"
-#include "Components/BoxComponent.h"
+#include "Components/SphereComponent.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -12,8 +12,8 @@ AProjectile::AProjectile()
 	PrimaryActorTick.bCanEverTick = true;
 
 		
-	BoxComponent = CreateDefaultSubobject<UBoxComponent>(FName("Box"), false);
-	SetRootComponent(BoxComponent);
+	SphereComponent = CreateDefaultSubobject<USphereComponent>(FName("Sphere"), false);
+	SetRootComponent(SphereComponent);
 	
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(FName("Mesh"), false);
 	MeshComponent->SetupAttachment(GetRootComponent());
