@@ -55,8 +55,6 @@ void AWeapon::OnWeaponBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 	// {
 	// 	//
 	// }
-	
-	
 }
 
 

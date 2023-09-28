@@ -33,6 +33,8 @@ protected:
 	UFUNCTION() void OnWeaponBeginOverlap(AActor* OverlappedActor, AActor* OtherActor);
 	bool bWithInAttackRange(float AttackRange, AActor* Target);
 
+
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

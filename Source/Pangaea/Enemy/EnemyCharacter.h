@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Pangaea/Weapon/Weapon.h"
 #include "EnemyCharacter.generated.h"
 
 UCLASS(Blueprintable)
@@ -34,6 +35,9 @@ protected:
 
 	UFUNCTION()
 	void PawnSeen(APawn* SeenPawn);
+
+	UClass* WeaponClass;
+	AWeapon* WeaponActor;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

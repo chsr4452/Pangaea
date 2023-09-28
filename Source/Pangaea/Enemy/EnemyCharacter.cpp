@@ -15,6 +15,13 @@ AEnemyCharacter::AEnemyCharacter()
 	PawnSensingComponent = CreateDefaultSubobject<UPawnSensingComponent>(FName("PawnSensor"));
 	PawnSensingComponent->SightRadius = 5000.f;
 	PawnSensingComponent->SetPeripheralVisionAngle(45.f);
+	///Script/Engine.Blueprint'/Game/TopDown/Blueprints/Weapons/Axe.Axe'
+	//C:/Unreal Projects/Pangaea/Content/TopDown/Blueprints/Weapons/Axe.uasset
+//"C:\Unreal Projects\Pangaea\Content\TopDown\Blueprints\Weapons\Sword.uasset"
+	// FString RelativePath = FPaths::ProjectContentDir();
+	// UE_LOG(LogTemp, Warning, FString(RelativePath));
+	static ConstructorHelpers::FObjectFinder<UBlueprint> Blueprint_Finder(TEXT("Script/Engine.Blueprint'/Game/TopDown/Blueprints/Weapons/Axe.Axe'"));
+	WeaponClass = static_cast<UClass*>(Blueprint_Finder.Object->GeneratedClass);
 	
 }
 
@@ -28,6 +35,10 @@ void AEnemyCharacter::BeginPlay()
 	{
 		PawnSensingComponent->OnSeePawn.AddDynamic(this, &AEnemyCharacter::PawnSeen);
 	}
+
+	WeaponActor = Cast<AWeapon>(GetWorld()->SpawnActor(WeaponClass));
+	WeaponActor->Holder = this;
+	WeaponActor->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, FName("hand_rSocket"));
 }
 
 void AEnemyCharacter::PawnSeen(APawn* SeenPawn)

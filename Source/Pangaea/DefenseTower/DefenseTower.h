@@ -17,7 +17,7 @@ class PANGAEA_API ADefenseTower : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ADefenseTower();
-	
+	class APlayerAvatar* Target = nullptr;
 
 
 protected:
@@ -53,10 +53,27 @@ public:
 	{
 		return MeshComponent;
 	}
+
+
+	UClass* FireballClass;
 	
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
 	TObjectPtr<USphereComponent> SphereComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
 	TObjectPtr<UStaticMeshComponent> MeshComponent;
+
+	UFUNCTION() void OnBeginOverlap(
+	UPrimitiveComponent* OverlappedComponent,
+	AActor* OtherActor,
+	UPrimitiveComponent* OtherComponent,
+	int32 OtherBodyIndex,
+	bool bFromSweep,
+	const FHitResult& SweepResult);
+	
+	UFUNCTION() void OnEndOverlap(
+	UPrimitiveComponent* OverlappedComponent,
+	AActor* OtherActor,
+	UPrimitiveComponent* OtherComponent,
+	int32 OtherBodyIndex);
 };
