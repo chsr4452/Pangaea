@@ -5,7 +5,9 @@
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Pangaea/Player/PlayerAnimInstance.h"
 #include "Pangaea/Player/PlayerAvatar.h"
+#include "Pangaea/Weapon/Weapon.h"
 #include "Projectile/Projectile.h"
 
 // Sets default values
@@ -47,6 +49,7 @@ void ADefenseTower::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	if(Target != nullptr)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("Fire!"));
 		Fire();
 	}
 }
@@ -74,11 +77,17 @@ void ADefenseTower::Hit(int Damage) const
 void ADefenseTower::Fire() const
 {
 	auto Fireball = Cast<AProjectile>(GetWorld()->SpawnActor(FireballClass));
+	if(Fireball)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Fireball spawned."));
+	}
 	FVector StartLocation = GetActorLocation();
 	StartLocation.Z += 100.f;
+	UE_LOG(LogTemp, Warning, TEXT("Actor Location:%s"), *StartLocation.ToString())
 	FVector TargetLocation = Target->GetActorLocation();
 	TargetLocation.Z = StartLocation.Z;
 	FRotator Rotation = UKismetMathLibrary::FindLookAtRotation(StartLocation, TargetLocation);
+	UE_LOG(LogTemp, Warning, TEXT("Actor Rotation:%s"), *Rotation.ToString())
 	Fireball->SetActorLocation(StartLocation);
 	Fireball->SetActorRotation(Rotation);
 	
@@ -102,6 +111,22 @@ void ADefenseTower::OnEndOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 	if(Target != nullptr && OtherActor == Target)
 	{
 		Target = nullptr;
+	}
+}
+
+void ADefenseTower::OnMeshBeginOverlap(AActor* OtherActor)
+{
+	AWeapon* Weapon = Cast<AWeapon>(OtherActor);
+	if(Weapon == nullptr || Weapon->Holder == nullptr)
+	{
+		return;
+	}
+	APlayerAvatar* PlayerChar = CastChecked<APlayerAvatar>(Weapon->Holder);
+	UPlayerAnimInstance* AnimInst = Cast<UPlayerAnimInstance>(PlayerChar->GetMesh()->GetAnimInstance());
+	
+	if(AnimInst->State == EPlayerState::Attack && CanBeDamaged())
+	{
+		Hit(Weapon->Strength);
 	}
 }
 

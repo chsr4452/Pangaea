@@ -63,7 +63,7 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
 	TObjectPtr<UStaticMeshComponent> MeshComponent;
 
-	UFUNCTION() void OnBeginOverlap(
+	UFUNCTION(BlueprintCallable) void OnBeginOverlap(
 	UPrimitiveComponent* OverlappedComponent,
 	AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent,
@@ -71,9 +71,11 @@ private:
 	bool bFromSweep,
 	const FHitResult& SweepResult);
 	
-	UFUNCTION() void OnEndOverlap(
+	UFUNCTION(BlueprintCallable) void OnEndOverlap(
 	UPrimitiveComponent* OverlappedComponent,
 	AActor* OtherActor,
 	UPrimitiveComponent* OtherComponent,
 	int32 OtherBodyIndex);
+
+	UFUNCTION(BlueprintCallable) void OnMeshBeginOverlap(AActor* OtherActor);
 };

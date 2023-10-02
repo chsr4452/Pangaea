@@ -24,13 +24,25 @@ AProjectile::AProjectile()
 void AProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	LifeCountingDown = Lifespan;
 }
 
 // Called every frame
 void AProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if(LifeCountingDown > 0.f)
+	{
+		LifeCountingDown -= DeltaTime;
+		FVector CurrentLocation = GetActorLocation();
+		FVector Vel = GetActorRotation().RotateVector(FVector::ForwardVector)* Speed * DeltaTime;
+		FVector NextLocation = CurrentLocation + Vel;
+		SetActorLocation(NextLocation);
+	}
+	else
+	{
+		PrimaryActorTick.bCanEverTick = false;
+		Destroy();
+	}
 }
 

@@ -26,8 +26,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	float Speed = 100.0f;
-	float Lifespan = 5.0f;
+	float Speed = 250.0f;
+	float Lifespan = 6.0f;
 	float Damage = 10.f;
 
 	FORCEINLINE USphereComponent * GetSphereComponent() const
@@ -45,5 +45,4 @@ private:
 	TObjectPtr<USphereComponent> SphereComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tower Component", meta = (AllowPrivateAccess = true))
 	TObjectPtr<UStaticMeshComponent> MeshComponent;
-
 };
